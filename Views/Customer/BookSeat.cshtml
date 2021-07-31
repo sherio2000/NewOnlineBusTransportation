@@ -1,0 +1,341 @@
+﻿@model SeatBooking
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+
+    .seatSelection {
+        text-align: center;
+        padding: 5px;
+        margin: 15px;
+    }
+
+    .seatsReceipt {
+        text-align: center;
+    }
+
+    .seatNumber {
+        display: inline;
+        padding: 10px;
+        background-color: #5c86eb;
+        color: #FFF;
+        border-radius: 5px;
+        cursor: default;
+        height: 25px;
+        width: 25px;
+        line-height: 60px;
+        text-align: center;
+    }
+
+    .seatRow {
+        padding: 10px;
+    }
+
+    .seatSelected {
+        background-color: lightgreen;
+        color: black;
+    }
+
+    .seatUnavailable {
+        background-color: red;
+    }
+
+    .seatRowNumber {
+        clear: none;
+        display: inline;
+    }
+
+    .hidden {
+        display: none;
+    }
+
+    .seatsAmount {
+        max-width: 2em;
+    }
+</style>
+
+<h3>Book your seat</h3>
+<br />
+<h4 style="color:green;"><label style="font-weight:bold;">Bus Name:</label> @TempData["Name"] || <label style="font-weight:bold;">Bus Number:</label> @TempData["BusNumber"] || <label style="font-weight:bold;">Departure:</label> @TempData["Departure"] || <label style="font-weight:bold;">Destination:</label> @TempData["Destination"] || <label style="font-weight:bold;">Departure Time:</label> @TempData["DepartureTime"]</h4>
+
+<form method="post" asp-action="ConfirmBooking" id="frmbooking">
+    <input name="businfoid" id="businfoid" type="hidden" value=@TempData["BusInfoID"] />
+    <div class="seatSelection col-lg-12">
+        <p class="seatSection">
+
+                <p style="color:red;">Red highlighted seats are already booked/Not available due to COVID-19</p><br />
+            You can book your seats accordingly and proceed to check out.
+        </p>
+
+        <div class="seatsChart col-lg-6">
+            <div class="seatRow">
+                <div class="seatRowNumber">
+                    Row 1
+                </div>
+                @foreach (var item in Model.Row1)
+                {
+                    if (item.SeatNumber == 4)
+                    {
+                        <div id=@item.SeatID style="margin-left:30px;" title="" role="checkbox" value="10" aria-checked="false" focusable="true" tabindex="-1" class=" seatNumber @item.SeatStatus">@item.SeatNumber</div>
+
+                    }
+                    else
+                    {
+
+                        <div id=@item.SeatID title="" role="checkbox" value="10" aria-checked="false" focusable="true" tabindex="-1" class=" seatNumber @item.SeatStatus">@item.SeatNumber</div>
+                    }
+                }
+               
+            </div>
+            <div class="seatRow">
+                <div class="seatRowNumber">
+                    Row 2
+                </div>
+                @foreach (var item in Model.Row2)
+                {
+                    if (item.SeatNumber == 9)
+                    {
+                        <div id=@item.SeatID style="margin-left:30px;" title="" role="checkbox" value="10" aria-checked="false" focusable="true" tabindex="-1" class=" seatNumber @item.SeatStatus">@item.SeatNumber</div>
+
+                    }
+                    else
+                    {
+
+                        <div id=@item.SeatID title="" role="checkbox" value="10" aria-checked="false" focusable="true" tabindex="-1" class=" seatNumber @item.SeatStatus">@item.SeatNumber</div>
+                    }
+                }
+              
+            </div>
+
+
+            <div class="seatRow">
+                <div class="seatRowNumber">
+                    Row 3
+                </div>
+                @foreach (var item in Model.Row3)
+                {
+                    if (item.SeatNumber == 14)
+                    {
+                        <div id=@item.SeatID style="margin-left:30px;" title="" role="checkbox" value="10" aria-checked="false" focusable="true" tabindex="-1" class=" seatNumber @item.SeatStatus">@item.SeatNumber</div>
+
+                    }
+                    else
+                    {
+
+                        <div id=@item.SeatID title="" role="checkbox" value="10" aria-checked="false" focusable="true" tabindex="-1" class=" seatNumber @item.SeatStatus">@item.SeatNumber</div>
+                    }
+                }
+              
+            </div>
+
+            <div class="seatRow">
+                <div class="seatRowNumber">
+                    Row 4
+                </div>
+                @foreach (var item in Model.Row4)
+                {
+                    if (item.SeatNumber == 19)
+                    {
+                        <div id=@item.SeatID style="margin-left:30px;" title="" role="checkbox" value="10" aria-checked="false" focusable="true" tabindex="-1" class=" seatNumber @item.SeatStatus">@item.SeatNumber</div>
+
+                    }
+                    else
+                    {
+
+                        <div id=@item.SeatID title="" role="checkbox" value="10" aria-checked="false" focusable="true" tabindex="-1" class=" seatNumber @item.SeatStatus">@item.SeatNumber</div>
+                    }
+                }
+              
+            </div>
+
+
+            <div class="seatRow">
+                <div class="seatRowNumber">
+                    Row 5
+                </div>
+                @foreach (var item in Model.Row5)
+                {
+                    if (item.SeatNumber == 24)
+                    {
+                        <div id=@item.SeatID style="margin-left:30px;" title="" role="checkbox" value="10" aria-checked="false" focusable="true" tabindex="-1" class=" seatNumber @item.SeatStatus">@item.SeatNumber</div>
+
+                    }
+                    else
+                    {
+
+                        <div id=@item.SeatID title="" role="checkbox" value="10" aria-checked="false" focusable="true" tabindex="-1" class=" seatNumber @item.SeatStatus">@item.SeatNumber</div>
+                    }
+                }
+               
+            </div>
+        </div>
+
+        <div class="seatsReceipt col-lg-2">
+            <p><strong>Selected Seats: <span class="seatsAmount" />0 </span></strong> <button id="btnClear" class="btn">Clear</button></p>
+            <ul id="seatsList" name="seatsList" class="nav nav-stacked">
+            </ul>
+        </div>
+    </div>
+   
+    <div class="checkout col-lg-offset-6">
+        <span>Subtotal: CA$</span><span class="txtSubTotal"  >0.00</span><br />
+        <button id="btnCheckout" type="submit" disabled name="btnCheckout" class="btn btn-primary">
+            Check out & Confirm Booking
+        </button>
+
+    </div>
+    <div id="fields">
+        <input type="hidden" id="price" name="price" />
+    </div>
+</form>
+<script>
+    // Clicking any seat
+    $(".seatNumber").click(
+        function () {
+            
+           
+            if (!$(this).hasClass("seatUnavailable")) {
+                // If selected, unselect it
+                if ($(this).hasClass("seatSelected")) {
+                    var thisId = $(this).attr('id');
+                    var price = $('#seatsList .' + thisId).val();
+                    $(this).removeClass("seatSelected");
+                    $('#seatsList .' + thisId).remove();
+                    // Calling functions to update checkout total and seat counter.
+                    removeFromCheckout(price);
+                    refreshCounter();
+                    var elem = document.getElementById("txt" + thisId);
+
+                    elem.parentNode.removeChild(elem);
+
+
+                }
+                else {
+                    // else, select it
+                    // getting values from Seat
+                    var thisId = $(this).attr('id');
+                    var id = thisId.split("_");
+                    var price = $(this).attr('value');
+                    var seatDetails = "Row: " + id[0] + " Seat:" + id[1] + " Price:CA$:" + price;
+
+                    var freeSeats = parseInt($('.freeSeats').first().text());
+                    var selectedSeats = parseInt($(".seatSelected").length);
+
+                    // If you have free seats available the price of this one will be 0.
+                    if (selectedSeats < freeSeats) {
+                        price = 0;
+                    }
+
+                    // Adding this seat to the list
+                    var seatDetails = "Row: " + id[0] + " Seat:" + id[1] + " Price:CA$:" + price;
+                    $("#seatsList").append('<li value=' + price + ' class=' + thisId + '>' + seatDetails + "  " + "<button id='remove:" + thisId + "'+ class='btn btn-default btn-sm removeSeat' value='" + price + "'><strong>X</strong></button></li>");
+                    var input = document.createElement("input");
+
+                    input.setAttribute("type", "hidden");
+
+                    input.setAttribute("name", thisId);
+                    input.setAttribute("id", "txt" + thisId);
+
+
+                    input.setAttribute("value", id[1]);
+
+                    //append to form element that you want .
+                    document.getElementById("fields").appendChild(input);
+
+
+                    $(this).addClass("seatSelected");
+
+                    addToCheckout(price);
+                    refreshCounter();
+                }
+            }
+        }
+    );
+    // Clicking any of the dynamically-generated X buttons on the list
+    $(document).on('click', ".removeSeat", function () {
+        // Getting the Id of the Seat
+        var id = $(this).attr('id').split(":");
+        var price = $(this).attr('value')
+        $('#seatsList .' + id[1]).remove();
+        $("#" + id[1] + ".seatNumber").removeClass("seatSelected");
+        removeFromCheckout(price);
+        refreshCounter();
+    }
+    );
+    // Show tooltip on hover.
+    $(".seatNumber").hover(
+        function () {
+            if (!$(this).hasClass("seatUnavailable")) {
+                var id = $(this).attr('id');
+                var id = id.split("_");
+                var price = $(this).attr('value');
+                var tooltip = "Row: " + id[0] + " Seat:" + id[1] + " Price:CA$:" + price;
+
+                $(this).prop('title', tooltip);
+            } else {
+                $(this).prop('title', "Seat unavailable");
+            }
+        }
+    );
+    // Function to refresh seats counter
+    function refreshCounter() {
+        $(".seatsAmount").text($(".seatSelected").length);
+    }
+    // Add seat to checkout
+    function addToCheckout(thisSeat) {
+        var seatPrice = parseInt(thisSeat);
+        var num = parseInt($('.txtSubTotal').text());
+        num += seatPrice;
+        num = num.toString();
+        $('.txtSubTotal').text(num);
+        document.getElementById("price").value = num;
+        var priceValue = document.getElementsByClassName('txtSubTotal')[0].innerHTML;
+        if (priceValue != 0.00 && priceValue != 0) {
+            document.getElementById("btnCheckout").disabled = false;
+        }
+        else {
+            document.getElementById("btnCheckout").disabled = true;
+
+        }
+    }
+    // Remove seat from checkout
+    function removeFromCheckout(thisSeat) {
+        var seatPrice = parseInt(thisSeat);
+        var num = parseInt($('.txtSubTotal').text());
+        num -= seatPrice;
+        num = num.toString();
+        $('.txtSubTotal').text(num);
+        document.getElementById("price").value = num;
+        var priceValue = document.getElementsByClassName('txtSubTotal')[0].innerHTML;
+        if (priceValue != 0.00 && priceValue != 0) {
+            document.getElementById("btnCheckout").disabled = false;
+        }
+        else {
+            document.getElementById("btnCheckout").disabled = true;
+
+        }
+
+    }
+
+    // Clear seats.
+    $("#btnClear").click(
+        function () {
+            $('.txtSubTotal').text(0);
+            $(".seatsAmount").text(0);
+            $('.seatSelected').removeClass('seatSelected');
+            $('#seatsList li').remove();
+            document.getElementById("price").value = 0;
+            var priceValue = document.getElementsByClassName('txtSubTotal')[0].innerHTML;
+            if (priceValue != 0.00 && priceValue != 0) {
+                document.getElementById("btnCheckout").disabled = false;
+            }
+            else {
+                document.getElementById("btnCheckout").disabled = true;
+
+            }
+
+        }
+    );
+    
+</script>

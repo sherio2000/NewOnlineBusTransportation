@@ -1,0 +1,92 @@
+﻿@model IEnumerable<OnlineBusTransportation.Models.BusInfoViewModel>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h3>Search Buses Result</h3>
+
+<table class="table">
+
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BusNumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BusCapacity)
+            </th>
+
+            <th>
+                @Html.DisplayNameFor(model => model.Departure)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Destination)
+            </th>
+            <th>
+                Available Seats
+            </th>
+
+            <th>
+                Booked Seats
+            </th>
+            <th>
+                Departure datetime
+            </th>
+            <th>
+                Book Ticket
+            </th>
+            <th>
+                Booking
+            </th>
+
+
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BusNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BusCapacity)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.Departure)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Destination)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AvailableSeats)
+            </td>
+
+
+            <td>
+                @Html.DisplayFor(modelItem => item.BookedSeats)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.datetime)
+            </td>
+            <td>
+                <a asp-action="BookSeat" asp-controller="Customer" asp-route-busid="@item.BusID" asp-route-businfoid="@item.ID">Book Seat</a>
+            </td>
+            <td>
+                <a asp-action="ShowBooking" asp-controller="Customer" asp-route-businfoid="@item.ID">View Booking</a>
+            </td>
+
+
+        </tr>
+        }
+    </tbody>
+</table>

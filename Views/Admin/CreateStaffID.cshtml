@@ -1,0 +1,52 @@
+﻿
+
+@{
+    ViewData["Title"] = "Create Staff ID";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Create</h1>
+
+<h4>Company Account</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        @if (TempData["Message"] != null)
+        {
+            <h4 style="color:green;">Account Created Successfully!</h4>
+        }
+        <form asp-action="CreateStaffID" asp-controller="Admin">
+            <div class="form-group">
+                <label class="control-label">First Name</label>
+                <input class="form-control" name="firstname" id="firstname" required />
+            </div>
+
+            <div class="form-group">
+                <label class="control-label">Last Name</label>
+                <input class="form-control" name="lastname" id="lastname" required />
+            </div>
+            <div class="form-group">
+                <label class="control-label">Email</label>
+                <input class="form-control" name="email" id="email" required />
+            </div>
+            <div class="form-group">
+                <label class="control-label">Phone</label>
+                <input class="form-control" name="phone" id="phone" required />
+            </div>
+
+            <div class="form-group">
+                <label class="control-label">Password</label>
+                <input class="form-control" name="password" id="password" type="password" required />
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
